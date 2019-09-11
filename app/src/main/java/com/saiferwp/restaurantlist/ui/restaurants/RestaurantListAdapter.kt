@@ -16,12 +16,12 @@ class RestaurantListAdapter : RecyclerView.Adapter<RestaurantListAdapter.Restaur
         notifyDataSetChanged()
     }
 
-    var userIds = emptyList<Restaurant>()
+    private var userIds = emptyList<Restaurant>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantTileHolder {
         val inflater = LayoutInflater.from(parent.context)
         return RestaurantTileHolder(
-            inflater.inflate(R.layout.list_item, parent, false)
+            inflater.inflate(R.layout.restaurant_list_item, parent, false)
         )
     }
 
@@ -38,7 +38,14 @@ class RestaurantListAdapter : RecyclerView.Adapter<RestaurantListAdapter.Restaur
 
         fun bind(restaurant: Restaurant) {
             name.text = restaurant.name
-            status.text = restaurant.status
+            status.setText(restaurant.getStatus().titleIdx)
+
+            val resources = itemView.resources
+            status.setBackgroundColor(
+                resources.getColor(
+                    restaurant.getStatus().colorIdx
+                )
+            )
         }
     }
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RestaurantList</string>
+
+    <string name="restaurant_status_open">Open</string>
+    <string name="restaurant_status_order_ahead">Order ahead</string>
+    <string name="restaurant_status_closed">Closed</string>
 </resources>

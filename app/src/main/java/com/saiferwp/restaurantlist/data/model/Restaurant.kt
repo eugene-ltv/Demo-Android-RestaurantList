@@ -1,9 +1,25 @@
 package com.saiferwp.restaurantlist.data.model
 
+import com.saiferwp.restaurantlist.R
+
 class Restaurant {
     var name: String? = null
-    var status: String? = null
+    private var status: String? = null
     var sortingValues: SortingValues? = null
+
+    enum class Status(val id: String, val titleIdx: Int, val colorIdx: Int) {
+        OPEN("open", R.string.restaurant_status_open, R.color.restaurant_status_open),
+        ORDER_AHEAD(
+            "order ahead",
+            R.string.restaurant_status_order_ahead,
+            R.color.restaurant_status_order_ahead
+        ),
+        CLOSED("closed", R.string.restaurant_status_closed, R.color.restaurant_status_closed)
+    }
+
+    fun getStatus(): Status {
+        return Status.values().find { it.id == status } ?: Status.OPEN
+    }
 
     class SortingValues {
         val bestMatch: Float = 0f
