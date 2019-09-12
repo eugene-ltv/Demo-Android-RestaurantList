@@ -34,47 +34,36 @@ enum class SortingCategory(
     }
 
     fun sortListDescending(restaurantsList: List<Restaurant>): List<Restaurant> {
-        return when (this) {
+        val comparator = compareByDescending<Restaurant> {
+            it.favourire
+        }.thenBy {
+            it.getStatus().ordinal
+        }
 
+        return when (this) {
             BEST_MATCH -> restaurantsList.sortedWith(
-                compareBy<Restaurant> {
-                    it.getStatus().ordinal
-                }.thenByDescending { it.sortingValues?.bestMatch })
+                comparator.thenByDescending { it.sortingValues?.bestMatch })
 
             NEWEST -> restaurantsList.sortedWith(
-                compareBy<Restaurant> {
-                    it.getStatus().ordinal
-                }.thenByDescending { it.sortingValues?.newest })
+                comparator.thenByDescending { it.sortingValues?.newest })
 
             RATING_AVERAGE -> restaurantsList.sortedWith(
-                compareBy<Restaurant> {
-                    it.getStatus().ordinal
-                }.thenByDescending { it.sortingValues?.ratingAverage })
+                comparator.thenByDescending { it.sortingValues?.ratingAverage })
 
             DISTANCE -> restaurantsList.sortedWith(
-                compareBy<Restaurant> {
-                    it.getStatus().ordinal
-                }.thenBy { it.sortingValues?.distance })
+                comparator.thenBy { it.sortingValues?.distance })
 
             POPULARITY -> restaurantsList.sortedWith(
-                compareBy<Restaurant> {
-                    it.getStatus().ordinal
-                }.thenByDescending { it.sortingValues?.popularity })
+                comparator.thenByDescending { it.sortingValues?.popularity })
 
             AVERAGE_PRODUCT_PRICE -> restaurantsList.sortedWith(
-                compareBy<Restaurant> {
-                    it.getStatus().ordinal
-                }.thenBy { it.sortingValues?.averageProductPrice })
+                comparator.thenBy { it.sortingValues?.averageProductPrice })
 
             DELIVERY_COSTS -> restaurantsList.sortedWith(
-                compareBy<Restaurant> {
-                    it.getStatus().ordinal
-                }.thenBy { it.sortingValues?.deliveryCosts })
+                comparator.thenBy { it.sortingValues?.deliveryCosts })
 
             MIN_COST -> restaurantsList.sortedWith(
-                compareBy<Restaurant> {
-                    it.getStatus().ordinal
-                }.thenBy { it.sortingValues?.minCost })
+                comparator.thenBy { it.sortingValues?.minCost })
         }
     }
 }

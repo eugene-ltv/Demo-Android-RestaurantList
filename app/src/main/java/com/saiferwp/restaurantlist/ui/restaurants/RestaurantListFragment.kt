@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saiferwp.restaurantlist.R
+import com.saiferwp.restaurantlist.data.model.Restaurant
 import com.saiferwp.restaurantlist.data.model.SortingCategory
 import com.saiferwp.restaurantlist.misc.onItemSelected
 import kotterknife.bindView
@@ -30,7 +31,7 @@ class RestaurantListFragment : Fragment() {
 
     private val recyclerView: RecyclerView by bindView(R.id.recyclerView_restaurant_list)
     private val adapter: RestaurantListAdapter =
-        RestaurantListAdapter()
+        RestaurantListAdapter(::favouriteClicked)
 
     private val toolbar: Toolbar by bindView(R.id.toolbar)
     private val spinnerSortingCategory: Spinner by bindView(R.id.spinner_sorting_category)
@@ -108,5 +109,7 @@ class RestaurantListFragment : Fragment() {
         return adapter
     }
 
-
+    private fun favouriteClicked(restaurant: Restaurant) {
+        viewModel.favouriteClicked(restaurant)
+    }
 }

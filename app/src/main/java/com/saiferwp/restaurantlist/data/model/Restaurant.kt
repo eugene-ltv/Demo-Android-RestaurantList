@@ -4,9 +4,11 @@ import com.saiferwp.restaurantlist.R
 
 class Restaurant {
 
-    var name: String? = null
+    var name: String = ""
     private var status: String? = null
     var sortingValues: SortingValues? = null
+
+    var favourire: Boolean = false
 
     enum class Status(val id: String, val titleIdx: Int, val colorIdx: Int) {
         OPEN("open", R.string.restaurant_status_open, R.color.restaurant_status_open),
