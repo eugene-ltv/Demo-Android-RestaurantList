@@ -3,6 +3,7 @@ package com.saiferwp.restaurantlist.data.model
 import com.saiferwp.restaurantlist.R
 
 class Restaurant {
+
     var name: String? = null
     private var status: String? = null
     var sortingValues: SortingValues? = null

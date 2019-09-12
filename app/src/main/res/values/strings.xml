@@ -1,7 +1,16 @@
 <resources>
-    <string name="app_name">RestaurantList</string>
+    <string name="app_name">Restaurants</string>
 
     <string name="restaurant_status_open">Open</string>
     <string name="restaurant_status_order_ahead">Order ahead</string>
     <string name="restaurant_status_closed">Closed</string>
+
+    <string name="sorting_category_best_match">Best match</string>
+    <string name="sorting_category_newest">Newest</string>
+    <string name="sorting_category_rating_average">Rating</string>
+    <string name="sorting_category_distance">Distance</string>
+    <string name="sorting_category_popularity">Popularity</string>
+    <string name="sorting_category_average_product_price">Avg. price</string>
+    <string name="sorting_category_average_delivery_costs">Delivery costs</string>
+    <string name="sorting_category_min_cost">Min cost</string>
 </resources>
