@@ -51,7 +51,7 @@ class RestaurantListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(RestaurantListViewModel::class.java)
 
-        viewModel.getRestaurantList()
+        viewModel.restaurantList()
             .observe(this, Observer { list ->
                 adapter.setData(list, viewModel.getCurrentSortingCategory())
             })
