@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +18,7 @@ import com.saiferwp.restaurantlist.R
 import com.saiferwp.restaurantlist.data.model.SortingCategory
 import com.saiferwp.restaurantlist.misc.onItemSelected
 import kotterknife.bindView
+
 
 class RestaurantListFragment : Fragment() {
 
@@ -33,6 +35,8 @@ class RestaurantListFragment : Fragment() {
     private val toolbar: Toolbar by bindView(R.id.toolbar)
     private val spinnerSortingCategory: Spinner by bindView(R.id.spinner_sorting_category)
 
+    private val searchView: SearchView by bindView(R.id.searchView_filter_by_name)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +49,27 @@ class RestaurantListFragment : Fragment() {
         recyclerView.adapter = adapter
 
         spinnerSortingCategory.adapter = createSortingCategoriesSpinnerAdapter()
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    adapter.clearFilter()
+                } else {
+                    adapter.filterByName(newText)
+                }
+                return true
+            }
+        })
+        searchView.setOnCloseListener {
+            adapter.clearFilter()
+            searchView.clearFocus()
+            true
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -82,4 +107,6 @@ class RestaurantListFragment : Fragment() {
         adapter.setDropDownViewResource(R.layout.spinner_item_sorting_category)
         return adapter
     }
+
+
 }

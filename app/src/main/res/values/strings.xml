@@ -13,4 +13,6 @@
     <string name="sorting_category_average_product_price">Avg. price</string>
     <string name="sorting_category_average_delivery_costs">Delivery costs</string>
     <string name="sorting_category_min_cost">Min cost</string>
+
+    <string name="hint_filter_by_name">Filter by name</string>
 </resources>

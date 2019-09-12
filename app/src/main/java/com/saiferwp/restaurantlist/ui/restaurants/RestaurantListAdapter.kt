@@ -9,17 +9,20 @@ import com.saiferwp.restaurantlist.R
 import com.saiferwp.restaurantlist.data.model.Restaurant
 import com.saiferwp.restaurantlist.data.model.SortingCategory
 import kotterknife.bindView
+import java.util.*
 
 class RestaurantListAdapter : RecyclerView.Adapter<RestaurantListAdapter.RestaurantTileHolder>() {
 
-    private var userIds = emptyList<Restaurant>()
+    private var items = emptyList<Restaurant>()
+    private var filteredItems: List<Restaurant>? = null
+
     private var sortingCategory: SortingCategory? = null
 
     fun setData(
         items: List<Restaurant>,
         currentSortingCategory: SortingCategory
     ) {
-        userIds = items
+        this.items = items
         sortingCategory = currentSortingCategory
         notifyDataSetChanged()
     }
@@ -31,10 +34,23 @@ class RestaurantListAdapter : RecyclerView.Adapter<RestaurantListAdapter.Restaur
         )
     }
 
-    override fun getItemCount() = userIds.size
+    override fun getItemCount() = filteredItems?.size ?: items.size
 
     override fun onBindViewHolder(holder: RestaurantTileHolder, position: Int) {
-        holder.bind(userIds[position], sortingCategory)
+        holder.bind(filteredItems?.get(position) ?: items[position], sortingCategory)
+    }
+
+    fun filterByName(queryString: String) {
+        val queryStringLowered = queryString.toLowerCase(Locale.ENGLISH)
+        filteredItems = items.filter {
+            it.name?.toLowerCase(Locale.ENGLISH)?.contains(queryStringLowered) ?: false
+        }
+        notifyDataSetChanged()
+    }
+
+    fun clearFilter() {
+        filteredItems = null
+        notifyDataSetChanged()
     }
 
     class RestaurantTileHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
