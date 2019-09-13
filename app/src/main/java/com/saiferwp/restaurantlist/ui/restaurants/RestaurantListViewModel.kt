@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 
 class RestaurantListViewModel : ViewModel() {
 
-    private val repository: RestaurantsRepository = App.component.restaurantsRepository()
+    internal val repository: RestaurantsRepository = App.component.restaurantsRepository()
     private val restaurantsListLiveData = MutableLiveData<List<Restaurant>>()
 
     private var list: List<Restaurant>? = null

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -18,6 +17,7 @@ import com.saiferwp.restaurantlist.R
 import com.saiferwp.restaurantlist.data.model.Restaurant
 import com.saiferwp.restaurantlist.data.model.SortingCategory
 import com.saiferwp.restaurantlist.misc.onItemSelected
+import com.saiferwp.restaurantlist.ui.MainActivity
 import kotterknife.bindView
 
 
@@ -27,10 +27,10 @@ class RestaurantListFragment : Fragment() {
         fun newInstance() = RestaurantListFragment()
     }
 
-    private lateinit var viewModel: RestaurantListViewModel
+    internal lateinit var viewModel: RestaurantListViewModel
 
     private val recyclerView: RecyclerView by bindView(R.id.recyclerView_restaurant_list)
-    private val adapter: RestaurantListAdapter =
+    internal val adapter: RestaurantListAdapter =
         RestaurantListAdapter(::favouriteClicked)
 
     private val toolbar: Toolbar by bindView(R.id.toolbar)
@@ -82,7 +82,9 @@ class RestaurantListFragment : Fragment() {
                 adapter.setData(list, viewModel.getCurrentSortingCategory())
             })
 
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        if (activity is MainActivity) {
+            (activity as MainActivity).setSupportActionBar(toolbar)
+        }
 
         spinnerSortingCategory.onItemSelectedListener = null
         spinnerSortingCategory.setSelection(viewModel.getSortOptionPosition(), false)

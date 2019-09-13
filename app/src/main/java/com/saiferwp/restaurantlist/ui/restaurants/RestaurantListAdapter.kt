@@ -16,7 +16,7 @@ class RestaurantListAdapter(
     private val favoriteClicked: (Restaurant) -> (Unit)
 ) : RecyclerView.Adapter<RestaurantListAdapter.RestaurantTileHolder>() {
 
-    private var items = emptyList<Restaurant>()
+    internal var items = emptyList<Restaurant>()
     private var filteredItems: List<Restaurant>? = null
 
     private var sortingCategory: SortingCategory? = null
